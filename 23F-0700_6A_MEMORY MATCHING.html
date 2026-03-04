@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Memory Game</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body{
+            text-align:center;
+            font-family: Arial;
+            margin:0;
+            min-height:100vh;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #ff6a88, #ff99ac);
+            background-size: 400% 400%;
+            animation: move 10s infinite alternate;
+        }
+
+        @keyframes move{
+            0%{background-position:0% 50%;}
+            100%{background-position:100% 50%;}
+        }
+
+        .game{
+            width:420px;
+            margin:20px auto;
+        }
+
+        .card{
+            width:90px;
+            height:90px;
+            background:purple;
+            color:white;
+            font-size:30px;
+            line-height:90px;
+            display:inline-block;
+            margin:5px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            background:#5e2a84;
+        }
+
+        .matched{
+            background:green;
+        }
+
+        button{
+            padding:10px 20px;
+            margin-top:10px;
+            cursor:pointer;
+        }
+
+        #message{
+            color:white;
+            font-size:22px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 style="color:white;">Memory Matching Game</h1>
+
+<button id="restart">Restart</button>
+
+<div class="game"></div>
+
+<h2 id="message"></h2>
+
+<script>
+
+var first = null;
+var second = null;
+var lock = false;
+var matches = 0;
+
+function startGame(){
+
+    $(".game").empty();
+    $("#message").text("");
+
+    first = null;
+    second = null;
+    lock = false;
+    matches = 0;
+
+    var cards = ["A","A","B","B","C","C","D","D"];
+    cards.sort(function(){ return 0.5 - Math.random(); });
+
+    for(var i=0;i<cards.length;i++){
+        $(".game").append("<div class='card' data='"+cards[i]+"'></div>");
+    }
+
+    $(".card").click(function(){
+
+        if(lock) return;
+        if($(this).hasClass("matched")) return;
+        if($(this).text() != "") return;
+
+        $(this).text($(this).attr("data"));
+
+        if(first == null){
+            first = $(this);
+        }
+        else{
+            second = $(this);
+            lock = true;
+
+            if(first.attr("data") == second.attr("data")){
+                first.addClass("matched");
+                second.addClass("matched");
+                matches++;
+
+                if(matches == 4){
+                    $("#message").text("🎉 Congratulations! You won!");
+                }
+
+                first = null;
+                second = null;
+                lock = false;
+            }
+            else{
+                setTimeout(function(){
+                    first.text("");
+                    second.text("");
+                    first = null;
+                    second = null;
+                    lock = false;
+                },800);
+            }
+        }
+
+    });
+}
+
+$(document).ready(function(){
+    startGame();
+
+    $("#restart").click(function(){
+        startGame();
+    });
+});
+
+</script>
+
+</body>
+</html>
