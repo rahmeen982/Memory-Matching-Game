@@ -15,14 +15,13 @@ Match all the cards to win and enjoy a smooth animated background and interactiv
 
 ## How to Play
 
-1. Open `index.html` in your browser.
-2. Click a card to reveal its value.
-3. Click a second card to try to find a match.
-4. If both cards match, they stay green.
-5. If they don’t match, they hide automatically after 0.8 seconds.
-6. Continue until all cards are matched.
-7. Once all matches are found, a **Congratulations** message appears.
-8. Use the **Restart** button to play again.
+1. Click a card to reveal its value.
+2. Click a second card to try to find a match.
+3. If both cards match, they stay green.
+4. If they don’t match, they hide automatically after 0.8 seconds.
+5. Continue until all cards are matched.
+6. Once all matches are found, a **Congratulations** message appears.
+7. Use the **Restart** button to play again.
 ---
 ##  Technologies Used
 * **HTML** – Structure of the game
